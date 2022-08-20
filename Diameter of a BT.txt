@@ -1,0 +1,40 @@
+class Solution {
+    private:
+    int height(Node*root){
+        if(root==NULL){
+            return 0;
+        }
+        int left=height(root->left);
+        int right=height(root->right);
+        int ans=max(left,right)+1;
+        
+        return ans;
+    }
+  public:
+    // Function to return the diameter of a Binary Tree.
+    pair<int,int>DiaFast(Node*root){
+         if(root==NULL){
+            pair<int,int> p=make_pair(0,0);
+            return p;
+        }
+        pair<int,int>l=DiaFast(root->left);
+        pair<int,int>r=DiaFast(root->right);
+        
+        int d1=l.first;
+        int d2=r.first;
+        int d3=l.second+r.second+1;
+        
+        pair<int,int>ans;
+        
+        ans.first=max(d1,max(d2,d3));
+        ans.second=max(l.second,r.second)+1;
+        return ans;
+    }
+    
+    int diameter(Node* root) {
+        // Your code here
+       
+        
+        
+        return DiaFast(root).first;
+    }
